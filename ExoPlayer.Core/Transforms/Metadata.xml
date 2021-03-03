@@ -34,8 +34,6 @@
 
     <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.upstream.cache']/class[@name='CacheDataSource.Factory']/method[@name='createDataSource' and count(parameter)=0]">Com.Google.Android.Exoplayer2.Upstream.IDataSource</attr>
 
-    <attr path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='WebSocketListener']/method[@name='onWebsocketMessage' and count(parameter)=2 and parameter[1][@type='org.java_websocket.WebSocket'] and parameter[2][@type='java.nio.ByteBuffer']]" name="managedName">OnWebsocketMessageByteBuffer</attr>
-
     <!-- Public classes inheriting private classes or returning private classes in method parameters (permitted in java) -->
     <attr path="/api/package[@name='com.google.android.exoplayer2.text.cea']/class[@name='CeaDecoder']" name="visibility">public</attr>
     <attr path="/api/package[@name='com.google.android.exoplayer2.text.ttml']/class[@name='TtmlSubtitle']" name="visibility">public</attr>
