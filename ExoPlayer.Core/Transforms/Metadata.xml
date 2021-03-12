@@ -120,10 +120,7 @@
     <remove-node path="/api/package[@name='com.google.android.exoplayer2.source.chunk']/interface[@name='ChunkSource']/method[@name='getPreferredQueueSize' and count(parameter)=2 and parameter[1][@type='long'] and parameter[2][@type='java.util.List&lt;? extends com.google.android.exoplayer2.source.chunk.MediaChunk&gt;']]" />
     <remove-node path="/api/package[@name='com.google.android.exoplayer2.text.cea']/class[@name='Cea608Decoder']/method[@name='dequeueOutputBuffer' and count(parameter)=0]" />
 
-    <!--  Need to remove because Java messes up  -->
-<!--    <remove-node path="/api/package[@name='com.google.android.exoplayer2.analytics']/class[@name='AnalyticsCollector']" />-->
-<!--    <remove-node path="/api/package[@name='com.google.android.exoplayer2.analytics']/interface[@name='AnalyticsListener']" />-->
-    <remove-node path="/api/package[@name='com.google.android.exoplayer2.analytics']/class[@name='AnalyticsListener.EventTime']" />
+    <attr path="/api/package[@name='com.google.android.exoplayer2.analytics']/interface[@name='AnalyticsListener']/method" name="eventName" />
 
     <!-- Need to remove for AdsLoader -->
     <remove-node path="/api/package[@name='com.google.android.exoplayer2.source.ads']/interface[@name='AdsLoader']/method[@name='handlePrepareError' and count(parameter)=3 and parameter[1][@type='int'] and parameter[2][@type='int'] and parameter[3][@type='java.io.IOException']]" />
@@ -207,4 +204,9 @@
     <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='setShuffleModeEnabled' and count(parameter)=1]/parameter[1]">java.lang.Boolean</attr>
 
     <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.source.chunk']/interface[@name='ChunkSource']/method[@name='shouldCancelLoad' and count(parameter)=3]/parameter[3]">java.util.IList</attr>
+
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.util']/interface[@name='MediaClock']/method[@name='getPositionUs' and count(parameter)=0]">java.lang.Long</attr>
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.util']/class[@name='StandaloneMediaClock']/method[@name='getPositionUs' and count(parameter)=0]">java.lang.Long</attr>
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.audio']/class[@name='DecoderAudioRenderer']/method[@name='getPositionUs' and count(parameter)=0]">java.lang.Long</attr>
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.audio']/class[@name='MediaCodecAudioRenderer']/method[@name='getPositionUs' and count(parameter)=0]">java.lang.Long</attr>
 </metadata>

@@ -69,5 +69,8 @@
 
   <!--<remove-node path="/api/package[@name='com.google.android.exoplayer2.ui']/class[@name='DebugTextViewHelper']/method[@name='OnLoadingChanged' and count(parameter)=1 and parameter[1][@type='bool']]" />
   <remove-node path="/api/package[@name='com.google.android.exoplayer2.ui']/class[@name='DebugTextViewHelper']/method[@name='OnShuffleModeEnabledChanged' and count(parameter)=1 and parameter[1][@type='bool']]" />-->
-
+  
+    <!--<attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='getPlayWhenReady' and count(parameter)=0]">java.lang.Boolean</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='setPlayWhenReady' and count(parameter)=1]/parameter[1]">java.lang.Boolean</attr>-->
+    
 </metadata>

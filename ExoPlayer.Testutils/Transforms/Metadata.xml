@@ -2,14 +2,6 @@
 <metadata>
   <!--<attr path="//interface/method[@abstract='false']" name="abstract">true</attr>-->
 
-  <remove-node path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='StubExoPlayer']/method[@name='setPlayWhenReady' and count(parameter)=1 and parameter[1][@type='boolean']]" />
-  <remove-node path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='StubExoPlayer']/method[@name='setRepeatMode' and count(parameter)=1 and parameter[1][@type='int']]" />
-  <remove-node path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='StubExoPlayer']/method[@name='setShuffleModeEnabled' and count(parameter)=1 and parameter[1][@type='boolean']]" />
-
-  <remove-node path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='StubExoPlayer']/method[@name='getPlayWhenReady' and count(parameter)=0]" />
-  <remove-node path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='StubExoPlayer']/method[@name='getRepeatMode' and count(parameter)=0]" />
-  <remove-node path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='StubExoPlayer']/method[@name='getShuffleModeEnabled' and count(parameter)=0]" />
-
   <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='FakeExtractorOutput']/method[@name='track' and count(parameter)=2 and parameter[1][@type='int'] and parameter[2][@type='int']]">Com.Google.Android.Exoplayer2.Extractor.ITrackOutput</attr>
 
   <attr name="visibility" path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='FakeMediaSource']/method[@name='prepareSourceInternal' and count(parameter)=1 and parameter[1][@type='com.google.android.exoplayer2.upstream.TransferListener']]">protected</attr>
@@ -20,5 +12,5 @@
   <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='FakeDataSource.Factory']/method[@name='createDataSource' and count(parameter)=0]">Com.Google.Android.Exoplayer2.Upstream.IDataSource</attr>
 
   <remove-node path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='FakeMediaSource']/method[@name='getTag' and count(parameter)=0]" />
-
+  <remove-node path="/api/package[@name='com.google.android.exoplayer2.testutil']/class[@name='FakeMediaSource']/method[@name='getInitialTimeline' and count(parameter)=0]" />
 </metadata>

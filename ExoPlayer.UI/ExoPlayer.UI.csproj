@@ -7,6 +7,7 @@
     <PackageId>Xam.Plugins.Android.ExoPlayer.UI</PackageId>
     <IsBindingProject>true</IsBindingProject>
     <EnableDefaultItems>false</EnableDefaultItems>
+    <ReleaseVersion>2.8.0</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +20,7 @@
   </ItemGroup>
 
    <ItemGroup>
-    <PackageReference Include="Xamarin.AndroidX.Media" Version="1.1.0.5" />
+    <PackageReference Include="Xamarin.AndroidX.Media" Version="1.2.1.2" />
     <PackageReference Include="Xamarin.AndroidX.RecyclerView" Version="1.1.0.5" />
   </ItemGroup>
   
