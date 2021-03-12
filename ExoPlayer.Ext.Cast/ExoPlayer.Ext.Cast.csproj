@@ -7,19 +7,19 @@
     <PackageId>Xam.Plugins.Android.ExoPlayer.Cast</PackageId>
     <IsBindingProject>true</IsBindingProject>
     <EnableDefaultItems>false</EnableDefaultItems>
+    <ReleaseVersion>2.8.0</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="Additions\*;Jars\*;Transforms\*;JavaDocs\**" />
     <LibraryProjectZip Include="Jars\*.aar" />
     <TransformFile Include="Transforms\*.xml" />
-    <Compile Include="Additions\*.cs" />
     <None Include="..\readme.txt" pack="true" PackagePath="." />
     <JavaSourceJar Include="JavaDocs\*.jar" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.GooglePlayServices.Cast.Framework" Version="118.1.0-preview02" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Cast.Framework" Version="119.0.0" />
   </ItemGroup>
   
   <ItemGroup>
