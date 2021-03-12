@@ -46,6 +46,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
 
         protected DemoDownloadService(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
+            
         }
 
         protected DemoDownloadService(int foregroundNotificationId) : base(foregroundNotificationId)

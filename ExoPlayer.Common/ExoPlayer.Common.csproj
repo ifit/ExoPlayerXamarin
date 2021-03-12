@@ -7,6 +7,8 @@
     <PackageId>Xam.Plugins.Android.ExoPlayer.Common</PackageId>
     <IsBindingProject>true</IsBindingProject>
     <EnableDefaultItems>false</EnableDefaultItems>
+    <!--NOTE by default its value is enabled, but bindings generator produces method with void? which is illegal-->
+    <Nullable>disable</Nullable>
   </PropertyGroup>
   
   <ItemGroup>
@@ -19,6 +21,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Xamarin.AndroidX.Annotation" Version="1.1.0.6" />
+    <PackageReference Include="Xamarin.AndroidX.Annotation" Version="1.1.0.9" />
   </ItemGroup>
 </Project>

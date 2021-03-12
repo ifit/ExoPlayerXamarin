@@ -71,7 +71,7 @@
 
     <!-- Rename duplicate event handler args -->
     <attr path="/api/package[@name='com.google.android.exoplayer2.audio']/interface[@name='AudioSink.Listener']/method[@name='onAudioSessionId']" name="argsType">AudioSinkSessionIdEventArgs</attr>
-
+    
     <attr name="visibility" path="/api/package[@name='com.google.android.exoplayer2.source']/class[@name='MediaSource.MediaPeriodId']">public</attr>
 
     <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.text']/class[@name='SimpleSubtitleDecoder']/method[@name='createUnexpectedDecodeException' and count(parameter)=1 and parameter[1][@type='java.lang.Throwable']]">java.lang.Object</attr>
@@ -186,4 +186,25 @@
 
     <remove-node path="/api/package[@name='com.google.android.exoplayer2.offline']/class[@name='SegmentDownloader']/method[@name='getManifest' and count(parameter)=2 and parameter[1][@type='com.google.android.exoplayer2.upstream.DataSource'] and parameter[2][@type='com.google.android.exoplayer2.upstream.DataSpec']]" />
 
+    <attr path="/api/package[@name='com.google.android.exoplayer2.audio']/interface[@name='AudioRendererEventListener']/method" name="eventName" />
+    <attr path="/api/package[@name='com.google.android.exoplayer2.video']/interface[@name='VideoRendererEventListener']/method" name="eventName" />
+
+    
+
+    <!--NOTE this method provides too much headache, so it is easier to remove it-->
+    <remove-node path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Renderer']/method[@name='getName' and count(parameter)=0]" />
+
+    <attr name="managedReturn" path="/api/package[@name='com.google.android.exoplayer2.upstream']/class[@name='FileDataSource.Factory']/method[@name='createDataSource' and count(parameter)=0]">Com.Google.Android.Exoplayer2.Upstream.IDataSource</attr>
+    <attr name="managedReturn" path="/api/package[@name='com.google.android.exoplayer2.upstream']/class[@name='FileDataSourceFactory']/method[@name='createDataSource' and count(parameter)=0]">Com.Google.Android.Exoplayer2.Upstream.IDataSource</attr>
+
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='getPlayWhenReady' and count(parameter)=0]">java.lang.Boolean</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='setPlayWhenReady' and count(parameter)=1]/parameter[1]">java.lang.Boolean</attr>
+    
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='SimpleExoPlayer']/method[@name='getRepeatMode' and count(parameter)=0]">java.lang.Integer</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='SimpleExoPlayer']/method[@name='setRepeatMode' and count(parameter)=1]/parameter[1]">java.lang.Integer</attr>
+
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='getShuffleModeEnabled' and count(parameter)=0]">java.lang.Boolean</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='setShuffleModeEnabled' and count(parameter)=1]/parameter[1]">java.lang.Boolean</attr>
+
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.source.chunk']/interface[@name='ChunkSource']/method[@name='shouldCancelLoad' and count(parameter)=3]/parameter[3]">java.util.IList</attr>
 </metadata>

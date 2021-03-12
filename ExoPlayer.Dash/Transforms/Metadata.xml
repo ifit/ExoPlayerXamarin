@@ -44,5 +44,13 @@
   <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.source.dash']/class[@name='DashMediaSource.Factory']/method[@name='setDrmSessionManager' and count(parameter)=1 and parameter[1][@type='com.google.android.exoplayer2.drm.DrmSessionManager&lt;?&gt;']]">Com.Google.Android.Exoplayer2.Source.IMediaSourceFactory</attr>
 
   <remove-node path="/api/package[@name='com.google.android.exoplayer2.source.dash']/class[@name='DashMediaSource']/method[@name='getTag' and count(parameter)=0]" />
-  
+
+  <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.source.dash']/interface[@name='DashChunkSource.Factory']/method[@name='createDashChunkSource']/parameter[9]">java.util.IList</attr>
+
+  <attr name="managedReturn" path="/api/package[@name='com.google.android.exoplayer2.source.dash']/class[@name='DashMediaSource.Factory']/method[@name='createMediaSource' and count(parameter)=1]">Com.Google.Android.Exoplayer2.Source.IMediaSource</attr>
+  <attr name="managedReturn" path="/api/package[@name='com.google.android.exoplayer2.source.dash']/class[@name='DashMediaSource.Factory']/method[@name='setDrmHttpDataSourceFactory' and count(parameter)=1]">Com.Google.Android.Exoplayer2.Source.IMediaSourceFactory</attr>
+  <attr name="managedReturn" path="/api/package[@name='com.google.android.exoplayer2.source.dash']/class[@name='DashMediaSource.Factory']/method[@name='setDrmSessionManager' and count(parameter)=1]">Com.Google.Android.Exoplayer2.Source.IMediaSourceFactory</attr>
+  <attr name="managedReturn" path="/api/package[@name='com.google.android.exoplayer2.source.dash']/class[@name='DashMediaSource.Factory']/method[@name='setDrmSessionManagerProvider' and count(parameter)=1]">Com.Google.Android.Exoplayer2.Source.IMediaSourceFactory</attr>
+  <attr name="managedReturn" path="/api/package[@name='com.google.android.exoplayer2.source.dash']/class[@name='DashMediaSource.Factory']/method[@name='setDrmUserAgent' and count(parameter)=1]">Com.Google.Android.Exoplayer2.Source.IMediaSourceFactory</attr>
+  <attr name="managedReturn" path="/api/package[@name='com.google.android.exoplayer2.source.dash']/class[@name='DashMediaSource.Factory']/method[@name='setLoadErrorHandlingPolicy' and count(parameter)=1]">Com.Google.Android.Exoplayer2.Source.IMediaSourceFactory</attr>
 </metadata>

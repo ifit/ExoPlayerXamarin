@@ -7,6 +7,8 @@
     <PackageId>Xam.Plugins.Android.ExoPlayer.Dash</PackageId>
     <IsBindingProject>true</IsBindingProject>
     <EnableDefaultItems>false</EnableDefaultItems>
+    <!--NOTE by default its value is enabled, but bindings generator produces method with void? which is illegal-->
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
