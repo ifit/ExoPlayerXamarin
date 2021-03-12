@@ -19,6 +19,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <!--NOTE Do not update to 3.13.X or later until minSdkVersion is increased to 21: https://cashapp.github.io/2019-02-05/okhttp-3-13-requires-android-5 -->
     <PackageReference Include="Square.OkHttp3" Version="3.12.6" />
   </ItemGroup>
   
