@@ -24,36 +24,35 @@
 
     <remove-node path="/api/package[@name='com.google.android.exoplayer2.source.ads']/class[@name='AdPlaybackState.AdGroup']/field[@name='uris']"/>
 
-
     <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='addMediaItems' and count(parameter)=1]/parameter[1]">mediaItems</attr>
-    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='addMediaItems' and count(parameter)=1]/parameter[1]">java.util.IList</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='addMediaItems' and count(parameter)=1]/parameter[1]">java.lang.Object</attr>
 
     <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='addMediaItems' and count(parameter)=2]/parameter[1]">index</attr>
     <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='addMediaItems' and count(parameter)=2]/parameter[2]">mediaItems</attr>
-    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='addMediaItems' and count(parameter)=2]/parameter[2]">java.util.IList</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='addMediaItems' and count(parameter)=2]/parameter[2]">java.lang.Object</attr>
 
     <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=1]/parameter[1]">mediaItems</attr>
-    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=1]/parameter[1]">java.util.IList</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=1]/parameter[1]">java.lang.Object</attr>
 
     <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=2]/parameter[1]">mediaItems</attr>
     <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=2]/parameter[2]">resetPosition</attr>
-    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=2]/parameter[1]">java.util.IList</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=2]/parameter[1]">java.lang.Object</attr>
 
     <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=3]/parameter[1]">mediaItems</attr>
     <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=3]/parameter[2]">startWindowIndex</attr>
     <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=3]/parameter[3]">startPositionMs</attr>
-    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=3]/parameter[1]">java.util.IList</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setMediaItems' and count(parameter)=3]/parameter[1]">java.lang.Object</attr>
 
-    <attr name="name" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='BasePlayer']/method[@name='setMediaItems' and count(parameter)=1]/parameter[1]">mediaItems</attr>
-    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='BasePlayer']/method[@name='setMediaItems' and count(parameter)=1]/parameter[1]">java.util.IList</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='BasePlayer']/method[@name='setMediaItems' and count(parameter)=1]/parameter[1]">java.lang.Object</attr>
 
-    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='getPlayWhenReady' and count(parameter)=0]">java.lang.Boolean</attr>
-    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setPlayWhenReady' and count(parameter)=1]/parameter[1]">java.lang.Boolean</attr>
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='getPlayWhenReady' and count(parameter)=0]" />
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setPlayWhenReady' and count(parameter)=1]" />
 
-    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='getRepeatMode' and count(parameter)=0]">java.lang.Integer</attr>
-    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setRepeatMode' and count(parameter)=1]/parameter[1]">java.lang.Integer</attr>
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='getRepeatMode' and count(parameter)=0]" />
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setRepeatMode' and count(parameter)=1]" />
 
-    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='getShuffleModeEnabled' and count(parameter)=0]">java.lang.Boolean</attr>
-    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setShuffleModeEnabled' and count(parameter)=1]/parameter[1]">java.lang.Boolean</attr>
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='getShuffleModeEnabled' and count(parameter)=0]" />
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setShuffleModeEnabled' and count(parameter)=1]" />
 
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='getCurrentStaticMetadata' and count(parameter)=0]">java.lang.Object</attr>
 </metadata>
