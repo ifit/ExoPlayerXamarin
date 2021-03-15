@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Android.Content;
 using Android.Gms.Cast;
 using Android.Gms.Cast.Framework;
 using Android.Views;
 using Com.Google.Android.Exoplayer2.Ext.Cast;
 using Com.Google.Android.Exoplayer2.Source;
+using Com.Google.Android.Exoplayer2.Source.Dash;
+using Com.Google.Android.Exoplayer2.Source.Hls;
+using Com.Google.Android.Exoplayer2.Source.Smoothstreaming;
 using Com.Google.Android.Exoplayer2.Trackselection;
 using Com.Google.Android.Exoplayer2.UI;
+using Com.Google.Android.Exoplayer2.Upstream;
 using Java.Lang;
 using static Com.Google.Android.Exoplayer2.CastDemo.DemoUtil;
 using static Com.Google.Android.Exoplayer2.Timeline;
 using android = Android;
-using Com.Google.Android.Exoplayer2.Upstream;
-using Com.Google.Android.Exoplayer2.Source.Smoothstreaming;
-using Com.Google.Android.Exoplayer2.Source.Dash;
-using Com.Google.Android.Exoplayer2.Source.Hls;
 
 namespace Com.Google.Android.Exoplayer2.CastDemo
 {
-    /**
-    * Manages players and an internal media queue for the ExoPlayer/Cast demo app.
-    */
-    /* package */
-    internal class PlayerManager : Java.Lang.Object, IPlayerEventListener, CastPlayer.ISessionAvailabilityListener
+    internal class PlayerManager : Java.Lang.Object, IPlayerEventListener, ISessionAvailabilityListener
     {
 
         /**
@@ -36,6 +31,11 @@ namespace Com.Google.Android.Exoplayer2.CastDemo
              * Called when the currently played item of the media queue changes.
              */
             void OnQueuePositionChanged(int previousIndex, int newIndex);
+
+        }
+
+        public void OnPlaybackStateChanged(int state)
+        {
 
         }
 
@@ -78,9 +78,9 @@ namespace Com.Google.Android.Exoplayer2.CastDemo
             currentItemIndex = C.IndexUnset;
             concatenatingMediaSource = new ConcatenatingMediaSource();
 
-            DefaultTrackSelector trackSelector = new DefaultTrackSelector(BANDWIDTH_METER);
+            DefaultTrackSelector trackSelector = new DefaultTrackSelector(context);
             IRenderersFactory renderersFactory = new DefaultRenderersFactory(context);
-            exoPlayer = ExoPlayerFactory.NewSimpleInstance(renderersFactory, trackSelector);
+            exoPlayer = ExoPlayerFactory.NewSimpleInstance(context, renderersFactory, trackSelector);
             exoPlayer.AddListener(this);
             localPlayerView.Player = exoPlayer;
 
@@ -332,7 +332,7 @@ namespace Com.Google.Android.Exoplayer2.CastDemo
                 if (playbackState != Player.StateEnded)
                 {
                     playbackPositionMs = this.currentPlayer.CurrentPosition;
-                    playWhenReady = this.currentPlayer.PlayWhenReady;
+                    playWhenReady = this.currentPlayer.GetPlayWhenReady();
                     windowIndex = this.currentPlayer.CurrentWindowIndex;
                     if (windowIndex != currentItemIndex)
                     {
@@ -386,7 +386,7 @@ namespace Com.Google.Android.Exoplayer2.CastDemo
             else
             {
                 currentPlayer.SeekTo(itemIndex, positionMs);
-                currentPlayer.PlayWhenReady = playWhenReady;
+                currentPlayer.SetPlayWhenReady (playWhenReady);
             }
         }
 
@@ -405,15 +405,15 @@ namespace Com.Google.Android.Exoplayer2.CastDemo
             android.Net.Uri uri = android.Net.Uri.Parse(sample.uri);
             switch (sample.mimeType)
             {
-                case DemoUtil.MIME_TYPE_SS:
+                case MIME_TYPE_SS:
                     return new SsMediaSource.Factory(new DefaultSsChunkSource.Factory(DATA_SOURCE_FACTORY), DATA_SOURCE_FACTORY).CreateMediaSource(uri);
-                case DemoUtil.MIME_TYPE_DASH:
+                case MIME_TYPE_DASH:
                     return new DashMediaSource.Factory(new DefaultDashChunkSource.Factory(DATA_SOURCE_FACTORY), DATA_SOURCE_FACTORY).CreateMediaSource(uri);
-                case DemoUtil.MIME_TYPE_HLS:
+                case MIME_TYPE_HLS:
                     return new HlsMediaSource.Factory(DATA_SOURCE_FACTORY).CreateMediaSource(uri);
-                case DemoUtil.MIME_TYPE_VIDEO_MP4:
+                case MIME_TYPE_VIDEO_MP4:
                     return new ExtractorMediaSource.Factory(DATA_SOURCE_FACTORY).CreateMediaSource(uri);
-                case DemoUtil.MIME_TYPE_AUDIO:
+                case MIME_TYPE_AUDIO:
                     return new ExtractorMediaSource.Factory(DATA_SOURCE_FACTORY).CreateMediaSource(uri);
                 default:
                     {
@@ -422,10 +422,10 @@ namespace Com.Google.Android.Exoplayer2.CastDemo
             }
         }
 
-        private static MediaQueueItem buildMediaQueueItem(DemoUtil.Sample sample)
+        private static MediaQueueItem buildMediaQueueItem(Sample sample)
         {
-            MediaMetadata movieMetadata = new MediaMetadata(MediaMetadata.MediaTypeMovie);
-            movieMetadata.PutString(MediaMetadata.KeyTitle, sample.name);
+            var movieMetadata = new android.Gms.Cast.MediaMetadata(android.Gms.Cast.MediaMetadata.MediaTypeMovie);
+            movieMetadata.PutString(android.Gms.Cast.MediaMetadata.KeyTitle, sample.name);
             MediaInfo mediaInfo = new MediaInfo.Builder(sample.uri)
                     .SetStreamType(MediaInfo.StreamTypeBuffered).SetContentType(sample.mimeType)
                     .SetMetadata(movieMetadata).Build();

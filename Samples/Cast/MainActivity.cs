@@ -1,18 +1,18 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Gms.Cast.Framework;
 using Android.Graphics;
 using Android.OS;
-using Android.Support.V4.Graphics;
-using Android.Support.V7.App;
-using Android.Support.V7.Widget;
-using Android.Support.V7.Widget.Helper;
 using Android.Views;
 using Android.Widget;
+using AndroidX.AppCompat.App;
+using AndroidX.Core.Graphics;
+using AndroidX.RecyclerView.Widget;
 using Com.Google.Android.Exoplayer2.UI;
 using static Android.Views.View;
 using static Android.Widget.AdapterView;
 using android = Android;
+using Android.Gms.Cast.Framework;
+using Android.Runtime;
 
 namespace Com.Google.Android.Exoplayer2.CastDemo
 {
@@ -87,7 +87,7 @@ namespace Com.Google.Android.Exoplayer2.CastDemo
 
         public void OnClick(View view)
         {
-            new android.Support.V7.App.AlertDialog.Builder(this).SetTitle(Resource.String.sample_list_dialog_title)
+            new AndroidX.AppCompat.App.AlertDialog.Builder(this).SetTitle(Resource.String.sample_list_dialog_title)
                 .SetView(BuildSampleListView()).SetPositiveButton(android.Resource.String.Ok, (IDialogInterfaceOnClickListener)null).Create()
                 .Show();
         }
