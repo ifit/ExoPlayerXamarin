@@ -7,7 +7,8 @@
     <PackageId>Xam.Plugins.Android.ExoPlayer.Testutils</PackageId>
     <IsBindingProject>true</IsBindingProject>
     <EnableDefaultItems>false</EnableDefaultItems>
-    <ReleaseVersion>2.8.0</ReleaseVersion>
+    <!--NOTE by default its value is enabled, but bindings generator produces method with void? which is illegal-->
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,4 +24,9 @@
     <ProjectReference Include="..\ExoPlayer.Core\ExoPlayer.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Additions\StubExoPlayer.cs">
+      <SubType></SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

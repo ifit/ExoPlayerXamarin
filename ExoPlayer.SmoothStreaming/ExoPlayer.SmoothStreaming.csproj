@@ -7,6 +7,7 @@
     <PackageId>Xam.Plugins.Android.ExoPlayer.SmoothStreaming</PackageId>
     <IsBindingProject>true</IsBindingProject>
     <EnableDefaultItems>false</EnableDefaultItems>
+    <!--NOTE by default its value is enabled, but bindings generator produces method with void? which is illegal-->
     <Nullable>disable</Nullable>
   </PropertyGroup>
 

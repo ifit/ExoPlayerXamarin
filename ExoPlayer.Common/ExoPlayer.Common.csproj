@@ -23,4 +23,9 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.AndroidX.Annotation" Version="1.1.0.9" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Additions\BasePlayer.cs">
+      <SubType></SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

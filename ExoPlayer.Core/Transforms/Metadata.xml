@@ -198,6 +198,7 @@
     <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='getPlayWhenReady' and count(parameter)=0]" />
     <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='getRepeatMode' and count(parameter)=0]" />
     <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='getShuffleModeEnabled' and count(parameter)=0]" />
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='getCurrentStaticMetadata' and count(parameter)=0]">java.lang.Object</attr>
 
     <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='addMediaItems' and count(parameter)=1]/parameter[1]">java.lang.Object</attr>
     <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='addMediaItems' and count(parameter)=2]/parameter[2]">java.lang.Object</attr>
@@ -205,7 +206,6 @@
     <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='setMediaItems' and count(parameter)=1]/parameter[1]">java.lang.Object</attr>
     <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='setMediaItems' and count(parameter)=2]/parameter[1]">java.lang.Object</attr>
     <attr name="type" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='setMediaItems' and count(parameter)=3]/parameter[1]">java.lang.Object</attr>
-    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/class[@name='SimpleExoPlayer']/method[@name='getCurrentStaticMetadata' and count(parameter)=0]">java.lang.Object</attr>
 
     <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.source.chunk']/interface[@name='ChunkSource']/method[@name='shouldCancelLoad' and count(parameter)=3]/parameter[3]">java.lang.Object</attr>
 <!--
