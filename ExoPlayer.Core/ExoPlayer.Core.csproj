@@ -26,4 +26,7 @@
     <ProjectReference Include="..\ExoPlayer.Extractor\ExoPlayer.Extractor.csproj" />
   </ItemGroup>
   
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Google.Guava" Version="28.2.0" />
+  </ItemGroup>
 </Project>

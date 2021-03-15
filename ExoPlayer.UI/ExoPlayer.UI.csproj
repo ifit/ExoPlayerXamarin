@@ -7,7 +7,8 @@
     <PackageId>Xam.Plugins.Android.ExoPlayer.UI</PackageId>
     <IsBindingProject>true</IsBindingProject>
     <EnableDefaultItems>false</EnableDefaultItems>
-    <ReleaseVersion>2.8.0</ReleaseVersion>
+    <!--NOTE by default its value is enabled, but bindings generator produces method with void? which is illegal-->
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

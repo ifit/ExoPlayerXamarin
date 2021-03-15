@@ -18,7 +18,7 @@
     <remove-node path="/api/package[@name='com.google.android.exoplayer2.upstream']/interface[@name='HttpDataSource']/method[@name='getResponseHeaders' and count(parameter)=0]" />
     <remove-node path="/api/package[@name='com.google.android.exoplayer2.upstream']/interface[@name='DataSource']/method[@name='getResponseHeaders' and count(parameter)=0]" />
 
-    <remove-node path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player.EventListener']/method[@name='onTimelineChanged' and count(parameter)=3 and parameter[1][@type='com.google.android.exoplayer2.Timeline'] and parameter[2][@type='java.lang.Object'] and parameter[3][@type='int']]" />
+
 
     <!-- deprecated fields that error -->
 
@@ -55,4 +55,6 @@
     <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='setShuffleModeEnabled' and count(parameter)=1]" />
 
     <attr name="return" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player']/method[@name='getCurrentStaticMetadata' and count(parameter)=0]">java.lang.Object</attr>
+
+    <attr name="eventName" path="/api/package[@name='com.google.android.exoplayer2']/interface[@name='Player.EventListener']/method" />
 </metadata>
