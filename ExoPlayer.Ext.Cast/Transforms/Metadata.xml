@@ -1,13 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='getCurrentStaticMetadata' and count(parameter)=0]">java.lang.Object</attr>
+    
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='getPlayWhenReady' and count(parameter)=0]" />
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='getPlayWhenReady' and count(parameter)=0]" />
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='getRepeatMode' and count(parameter)=0]" />
+    <attr name="propertyName" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='getShuffleModeEnabled' and count(parameter)=0]" />
+    <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='getCurrentStaticMetadata' and count(parameter)=0]">java.lang.Object</attr>
 
-  <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='getPlayWhenReady' and count(parameter)=0]">java.lang.Boolean</attr>
-  <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='setPlayWhenReady' and count(parameter)=1]/parameter[1]">java.lang.Boolean</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='addMediaItems' and count(parameter)=1]/parameter[1]">java.lang.Object</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='addMediaItems' and count(parameter)=2]/parameter[2]">java.lang.Object</attr>
 
-  <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='getShuffleModeEnabled' and count(parameter)=0]">java.lang.Boolean</attr>
-  <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='setShuffleModeEnabled' and count(parameter)=1]/parameter[1]">java.lang.Boolean</attr>
-
-  <attr name="return" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='getRepeatMode' and count(parameter)=1]">java.lang.Integer</attr>
-  <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='setRepeatMode' and count(parameter)=1]/parameter[1]">java.lang.Integer</attr>
+<!--    NOTE this node is not overriden in this class in version 2.13.2, it is better to check it again when some new version will come -->
+<!--    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='setMediaItems' and count(parameter)=1]/parameter[1]">java.lang.Object</attr>-->
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='setMediaItems' and count(parameter)=2]/parameter[1]">java.lang.Object</attr>
+    <attr name="type" path="/api/package[@name='com.google.android.exoplayer2.ext.cast']/class[@name='CastPlayer']/method[@name='setMediaItems' and count(parameter)=3]/parameter[1]">java.lang.Object</attr>
 
 </metadata>
