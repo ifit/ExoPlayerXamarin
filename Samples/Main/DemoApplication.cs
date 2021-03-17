@@ -20,7 +20,7 @@ using Com.Google.Android.Exoplayer2.Offline;
 using Com.Google.Android.Exoplayer2.Source.Dash.Offline;
 using Com.Google.Android.Exoplayer2.Source.Hls.Offline;
 using Com.Google.Android.Exoplayer2.Source.Smoothstreaming.Offline;
-using static Com.Google.Android.Exoplayer2.Offline.DownloadAction;
+//using static Com.Google.Android.Exoplayer2.Offline.DownloadAction;
 using Utils = Com.Google.Android.Exoplayer2.Util.Util;
 using Com.Google.Android.Exoplayer2.Upstream;
 using Com.Google.Android.Exoplayer2.Upstream.Cache;
@@ -40,23 +40,24 @@ namespace Com.Google.Android.Exoplayer2.Demo
         private const string DOWNLOAD_TRACKER_ACTION_FILE = "tracked_actions";
         private const string DOWNLOAD_CONTENT_DIRECTORY = "downloads";
         private const int MAX_SIMULTANEOUS_DOWNLOADS = 2;
-        private Deserializer[] DOWNLOAD_DESERIALIZERS =
-          new Deserializer[] {
-            DashDownloadAction.Deserializer,
-            HlsDownloadAction.Deserializer,
-            SsDownloadAction.Deserializer,
-            ProgressiveDownloadAction.Deserializer
-        };
+        //private Deserializer[] DOWNLOAD_DESERIALIZERS =
+        //  new Deserializer[] {
+        //    DashDownloadAction.Deserializer,
+        //    HlsDownloadAction.Deserializer,
+        //    SsDownloadAction.Deserializer,
+        //    ProgressiveDownloadAction.Deserializer
+        //};
 
         protected string userAgent;
 
         private File downloadDirectory;
         private ICache downloadCache;
         private Offline.DownloadManager downloadManager;
-        private DownloadTracker downloadTracker;
+        //private DownloadTracker downloadTracker;
 
         public DemoApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
+            
         }
 
         public DemoApplication()
@@ -86,7 +87,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
         /** Returns whether extension renderers should be used. */
         public bool UseExtensionRenderers()
         {
-            return android.Support.Compat.BuildConfig.Flavor.Equals("withExtensions");
+            return BuildConfig.Flavor.Equals("withExtensions");
         }
 
         public Offline.DownloadManager GetDownloadManager()
@@ -95,42 +96,42 @@ namespace Com.Google.Android.Exoplayer2.Demo
             return downloadManager;
         }
 
-        public DownloadTracker GetDownloadTracker()
-        {
-            InitDownloadManager();
-            return downloadTracker;
+        //public DownloadTracker GetDownloadTracker()
+        //{
+        //    InitDownloadManager();
+        //    return downloadTracker;
 
-        }
+        //}
 
         private readonly object _lock = new object();
 
         private void InitDownloadManager()
         {
-            lock (_lock)
-            {
-                if (downloadManager == null)
-                {
-                    DownloaderConstructorHelper downloaderConstructorHelper = new DownloaderConstructorHelper(
-                        GetDownloadCache(),
-                        BuildHttpDataSourceFactory(/* listener= */ null));
+            //lock (_lock)
+            //{
+            //    if (downloadManager == null)
+            //    {
+            //        DownloaderConstructorHelper downloaderConstructorHelper = new DownloaderConstructorHelper(
+            //            GetDownloadCache(),
+            //            BuildHttpDataSourceFactory(/* listener= */ null));
 
-                    downloadManager =
-                        new Offline.DownloadManager(
-                            downloaderConstructorHelper,
-                            MAX_SIMULTANEOUS_DOWNLOADS,
-                            Offline.DownloadManager.DefaultMinRetryCount,
-                            new File(GetDownloadDirectory(), DOWNLOAD_ACTION_FILE),
-                            DOWNLOAD_DESERIALIZERS);
+            //        downloadManager =
+            //            new Offline.DownloadManager(
+            //                downloaderConstructorHelper,
+            //                MAX_SIMULTANEOUS_DOWNLOADS,
+            //                Offline.DownloadManager.DefaultMinRetryCount,
+            //                new File(GetDownloadDirectory(), DOWNLOAD_ACTION_FILE),
+            //                DOWNLOAD_DESERIALIZERS);
 
-                    downloadTracker =
-                        new DownloadTracker(
-                            /* context= */ this,
-                            BuildDataSourceFactory(/* listener= */ null),
-                            new File(GetDownloadDirectory(), DOWNLOAD_TRACKER_ACTION_FILE),
-                            DOWNLOAD_DESERIALIZERS);
-                    downloadManager.AddListener(downloadTracker);
-                }
-            }
+            //        downloadTracker =
+            //            new DownloadTracker(
+            //                /* context= */ this,
+            //                BuildDataSourceFactory(/* listener= */ null),
+            //                new File(GetDownloadDirectory(), DOWNLOAD_TRACKER_ACTION_FILE),
+            //                DOWNLOAD_DESERIALIZERS);
+            //        downloadManager.AddListener(downloadTracker);
+            //    }
+            //}
         }
 
         private ICache GetDownloadCache()

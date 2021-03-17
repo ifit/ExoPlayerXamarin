@@ -34,12 +34,12 @@ using Android.Content.Res;
 namespace Com.Google.Android.Exoplayer2.Demo
 {
     /** An activity for selecting from a list of media samples. */
-    public class SampleChooserActivity : Activity, DownloadTracker.IListener, ExpandableListView.IOnChildClickListener
+    public class SampleChooserActivity : Activity/*, DownloadTracker.IListener*/, ExpandableListView.IOnChildClickListener
     {
 
         private static string TAG = "SampleChooserActivity";
 
-        private DownloadTracker downloadTracker;
+        //private DownloadTracker downloadTracker;
         private SampleAdapter sampleAdapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -81,7 +81,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 uris = uriList.ToArray();
             }
 
-            downloadTracker = ((DemoApplication)Application).GetDownloadTracker();
+            //downloadTracker = ((DemoApplication)Application).GetDownloadTracker();
             SampleListLoader loaderTask = new SampleListLoader(this);
             loaderTask.Execute(uris);
 
@@ -101,14 +101,14 @@ namespace Com.Google.Android.Exoplayer2.Demo
 
         protected override void OnStart()
         {
-            downloadTracker.AddListener(this);
+            //downloadTracker.AddListener(this);
             sampleAdapter.NotifyDataSetChanged();
             base.OnStart();
         }
 
         protected override void OnStop()
         {
-            downloadTracker.RemoveListener(this);
+            //downloadTracker.RemoveListener(this);
             base.OnStop();
         }
 
@@ -146,7 +146,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
             else
             {
                 UriSample uriSample = (UriSample)sample;
-                downloadTracker.ToggleDownload(this, sample.name, uriSample.uri, uriSample.extension);
+                //downloadTracker.ToggleDownload(this, sample.name, uriSample.uri, uriSample.extension);
             }
         }
 
@@ -194,7 +194,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 List<SampleGroup> result = new List<SampleGroup>();
                 Context context = activity.ApplicationContext;
                 string userAgent = Utils.GetUserAgent(context, "ExoPlayerDemo");
-                IDataSource dataSource = new DefaultDataSource(context, null, userAgent, false);
+                IDataSource dataSource = new DefaultDataSource(context, userAgent, false);
                 foreach (string uri in uris)
                 {
                     DataSpec dataSpec = new DataSpec(android.Net.Uri.Parse(uri));
@@ -503,7 +503,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 sampleTitle.SetText(sample.name, TextView.BufferType.Normal);
 
                 bool canDownload = activity.GetDownloadUnsupportedstringId(sample) == 0;
-                bool isDownloaded = canDownload && activity.downloadTracker.IsDownloaded(((UriSample)sample).uri);
+                bool isDownloaded = canDownload;// && activity.downloadTracker.IsDownloaded(((UriSample)sample).uri);
                 ImageButton downloadButton = (ImageButton)view.FindViewById(Resource.Id.download_button);
                 downloadButton.SetTag(downloadButton.Id, sample);
                 downloadButton.SetColorFilter(new Color((canDownload ? (isDownloaded ? int.Parse("FF42A5F5", System.Globalization.NumberStyles.HexNumber) : int.Parse("FFBDBDBD", System.Globalization.NumberStyles.HexNumber)) : int.Parse("FFEEEEEE", System.Globalization.NumberStyles.HexNumber))));

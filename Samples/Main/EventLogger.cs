@@ -40,7 +40,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
 	 * Logs player events using {@link Log}.
 	 */
     internal sealed class EventLogger : Object, IPlayerEventListener, IAudioRendererEventListener,
-        IVideoRendererEventListener, IMediaSourceEventListener, IDefaultDrmSessionEventListener, IMetadataOutput
+        IVideoRendererEventListener, IMediaSourceEventListener, IDrmSessionEventListener, IMetadataOutput
     {
 
         private const string TAG = "EventLogger";
@@ -139,7 +139,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
 
         public void OnTracksChanged(TrackGroupArray ignored, TrackSelectionArray trackSelections)
         {
-            var mappedTrackInfo = trackSelector.CurrentMappedTrackInfo;
+            var mappedTrackInfo = trackSelector?.CurrentMappedTrackInfo;
             if (mappedTrackInfo == null)
             {
                 Log.Debug(TAG, "Tracks []");
@@ -147,7 +147,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
             }
             Log.Debug(TAG, "Tracks [");
             // Log tracks associated to renderers.
-            for (var rendererIndex = 0; rendererIndex < mappedTrackInfo.Length; rendererIndex++)
+            for (var rendererIndex = 0; rendererIndex < mappedTrackInfo.RendererCount; rendererIndex++)
             {
                 var rendererTrackGroups = mappedTrackInfo.GetTrackGroups(rendererIndex);
                 var trackSelection = trackSelections.Get(rendererIndex);
@@ -478,27 +478,27 @@ namespace Com.Google.Android.Exoplayer2.Demo
         #endregion
 
         #region AdaptiveMediaSourceEventListener
-        public void OnDownstreamFormatChanged(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, MediaSourceEventListenerMediaLoadData mediaLoadData)
+        public void OnDownstreamFormatChanged(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, MediaLoadData mediaLoadData)
         {
             // Do nothing.
         }
 
-        public void OnLoadCanceled(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, MediaSourceEventListenerLoadEventInfo loadEventInfo, MediaSourceEventListenerMediaLoadData mediaLoadData)
+        public void OnLoadCanceled(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, LoadEventInfo loadEventInfo, MediaLoadData mediaLoadData)
         {
             // Do nothing.
         }
 
-        public void OnLoadCompleted(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, MediaSourceEventListenerLoadEventInfo loadEventInfo, MediaSourceEventListenerMediaLoadData mediaLoadData)
+        public void OnLoadCompleted(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, LoadEventInfo loadEventInfo, MediaLoadData mediaLoadData)
         {
             // Do nothing.
         }
 
-        public void OnLoadError(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, MediaSourceEventListenerLoadEventInfo loadEventInfo, MediaSourceEventListenerMediaLoadData mediaLoadData, IOException error, bool wasCanceled)
+        public void OnLoadError(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, LoadEventInfo loadEventInfo, MediaLoadData mediaLoadData, IOException error, bool wasCanceled)
         {
             printInternalError("loadError", error);
         }
 
-        public void OnLoadStarted(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, MediaSourceEventListenerLoadEventInfo loadEventInfo, MediaSourceEventListenerMediaLoadData mediaLoadData)
+        public void OnLoadStarted(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, LoadEventInfo loadEventInfo, MediaLoadData mediaLoadData)
         {
             // Do nothing.
         }
@@ -518,7 +518,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
             // Do nothing.
         }
 
-        public void OnUpstreamDiscarded(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, MediaSourceEventListenerMediaLoadData mediaLoadData)
+        public void OnUpstreamDiscarded(int windowIndex, MediaSourceMediaPeriodId mediaPeriodId, MediaLoadData mediaLoadData)
         {
             // Do nothing.
         }

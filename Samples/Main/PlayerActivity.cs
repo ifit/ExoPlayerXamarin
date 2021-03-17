@@ -48,6 +48,7 @@ using Android.Runtime;
 using Android.Content.PM;
 using Java.Lang.Reflect;
 using Android.Net;
+using System.Linq;
 
 namespace Com.Google.Android.Exoplayer2.Demo
 {
@@ -97,8 +98,8 @@ namespace Com.Google.Android.Exoplayer2.Demo
         private SimpleExoPlayer player;
         private FrameworkMediaDrm mediaDrm;
         private IMediaSource mediaSource;
-        private DefaultTrackSelector trackSelector;
-        private DefaultTrackSelector.Parameters trackSelectorParameters;
+        //private DefaultTrackSelector trackSelector;
+        //private DefaultTrackSelector.ParametersBuilder trackSelectorParametersBuilder;
         private DebugTextViewHelper debugViewHelper;
         private TrackGroupArray lastSeenTrackGroupArray;
 
@@ -144,14 +145,14 @@ namespace Com.Google.Android.Exoplayer2.Demo
 
             if (savedInstanceState != null)
             {
-                trackSelectorParameters = (DefaultTrackSelector.Parameters)savedInstanceState.GetParcelable(KEY_TRACK_SELECTOR_PARAMETERS);
+                //trackSelectorParametersBuilder = (DefaultTrackSelector.Parameters)savedInstanceState.GetParcelable(KEY_TRACK_SELECTOR_PARAMETERS);
                 startAutoPlay = savedInstanceState.GetBoolean(KEY_AUTO_PLAY);
                 startWindow = savedInstanceState.GetInt(KEY_WINDOW);
                 startPosition = savedInstanceState.GetLong(KEY_POSITION);
             }
             else
             {
-                trackSelectorParameters = new DefaultTrackSelector.ParametersBuilder().Build();
+                //trackSelectorParametersBuilder = new DefaultTrackSelector.ParametersBuilder(this);
                 ClearStartPosition();
             }
         }
@@ -228,7 +229,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
         {
             UpdateTrackSelectorParameters();
             UpdateStartPosition();
-            outState.PutParcelable(KEY_TRACK_SELECTOR_PARAMETERS, trackSelectorParameters);
+            //outState.PutParcelable(KEY_TRACK_SELECTOR_PARAMETERS, trackSelectorParametersBuilder.Build());
             outState.PutBoolean(KEY_AUTO_PLAY, startAutoPlay);
             outState.PutInt(KEY_WINDOW, startWindow);
             outState.PutLong(KEY_POSITION, startPosition);
@@ -247,23 +248,23 @@ namespace Com.Google.Android.Exoplayer2.Demo
         {
             if (view.Parent == debugRootView)
             {
-                MappedTrackInfo mappedTrackInfo = trackSelector.CurrentMappedTrackInfo;
-                if (mappedTrackInfo != null)
-                {
-                    string title = ((Button)view).Text;
-                    int rendererIndex = (int)view.GetTag(view.Id);
-                    int rendererType = mappedTrackInfo.GetRendererType(rendererIndex);
-                    bool allowAdaptiveSelections =
-                        rendererType == C.TrackTypeVideo
-                            || (rendererType == C.TrackTypeAudio
-                                && mappedTrackInfo.GetTypeSupport(C.TrackTypeVideo)
-                                    == MappedTrackInfo.RendererSupportNoTracks);
-                    Pair dialogPair = TrackSelectionView.GetDialog(this, title, trackSelector, rendererIndex);
+                //MappedTrackInfo mappedTrackInfo = trackSelector.CurrentMappedTrackInfo;
+                //if (mappedTrackInfo != null)
+                //{
+                //    string title = ((Button)view).Text;
+                //    int rendererIndex = (int)view.GetTag(view.Id);
+                //    int rendererType = mappedTrackInfo.GetRendererType(rendererIndex);
+                //    bool allowAdaptiveSelections =
+                //        rendererType == C.TrackTypeVideo
+                //            || (rendererType == C.TrackTypeAudio
+                //                && mappedTrackInfo.GetTypeSupport(C.TrackTypeVideo)
+                //                    == MappedTrackInfo.RendererSupportNoTracks);
+                //    //Pair dialogPair = TrackSelectionView.GetDialog(this, title, trackSelector, rendererIndex);
 
-                    ((TrackSelectionView)dialogPair.Second).SetShowDisableOption(true);
-                    ((TrackSelectionView)dialogPair.Second).SetAllowAdaptiveSelections(allowAdaptiveSelections);
-                    ((AlertDialog)dialogPair.First).Show();
-                }
+                //    //((TrackSelectionView)dialogPair.Second).SetShowDisableOption(true);
+                //    //((TrackSelectionView)dialogPair.Second).SetAllowAdaptiveSelections(allowAdaptiveSelections);
+                //    //((AlertDialog)dialogPair.First).Show();
+                //}
             }
         }
 
@@ -365,11 +366,11 @@ namespace Com.Google.Android.Exoplayer2.Demo
                     }
                 }
 
-                ITrackSelectionFactory trackSelectionFactory;
+                IExoTrackSelectionFactory trackSelectionFactory;
                 string abrAlgorithm = intent.GetStringExtra(ABR_ALGORITHM_EXTRA);
                 if (abrAlgorithm == null || ABR_ALGORITHM_DEFAULT.Equals(abrAlgorithm))
                 {
-                    trackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
+                    trackSelectionFactory = new AdaptiveTrackSelection.Factory();
                 }
                 else if (ABR_ALGORITHM_RANDOM.Equals(abrAlgorithm))
                 {
@@ -392,13 +393,13 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 DefaultRenderersFactory renderersFactory =
                     new DefaultRenderersFactory(this, extensionRendererMode);
 
-                trackSelector = new DefaultTrackSelector(trackSelectionFactory);
-                trackSelector.SetParameters(trackSelectorParameters);
+                //trackSelector = new DefaultTrackSelector(trackSelectionFactory);
+                //trackSelector.SetParameters(trackSelectorParametersBuilder);
                 lastSeenTrackGroupArray = null;
 
-                player = ExoPlayerFactory.NewSimpleInstance(this, renderersFactory, trackSelector, drmSessionManager);
+                player = ExoPlayerFactory.NewSimpleInstance(this, renderersFactory, null);
 
-                eventLogger = new EventLogger(trackSelector);
+                eventLogger = new EventLogger(null);
 
                 player.AddListener(new PlayerEventListener(this));
                 player.PlayWhenReady = startAutoPlay;
@@ -410,9 +411,8 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 //Todo: implement IAnalyticsListener
                 //player.AddAnalyticsListener(eventLogger);
 
-                player.AddAudioDebugListener(eventLogger);
-                player.AddVideoDebugListener(eventLogger);
-
+                player.AddListener(eventLogger);
+                
                 player.AddMetadataOutput(eventLogger);
                 //end Todo
 
@@ -486,7 +486,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
                     break;
                 case C.TypeHls:
                     src = new HlsMediaSource.Factory(mediaDataSourceFactory)
-                        .SetPlaylistParserFactory(new DefaultHlsPlaylistParserFactory(GetOfflineStreamKeys(uri)))
+                        .SetPlaylistParserFactory(new DefaultHlsPlaylistParserFactory())
                         .CreateMediaSource(uri);
                     break;
                 case C.TypeOther:
@@ -503,7 +503,8 @@ namespace Com.Google.Android.Exoplayer2.Demo
 
         private List<StreamKey> GetOfflineStreamKeys(android.Net.Uri uri)
         {
-            return ((DemoApplication)Application).GetDownloadTracker().GetOfflineStreamKeys(uri);
+            return System.Array.Empty<StreamKey>().ToList();
+            //return ((DemoApplication)Application).GetDownloadTracker().GetOfflineStreamKeys(uri);
         }
 
         private DefaultDrmSessionManager BuildDrmSessionManagerV18(UUID uuid, string licenseUrl, string[] keyRequestPropertiesArray, bool multiSession)
@@ -524,8 +525,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
             //return new DefaultDrmSessionManager(uuid, mediaDrm, drmCallback, null, multiSession);
 
             //Todo: implement IAnalyticsListener
-            return new DefaultDrmSessionManager(uuid, FrameworkMediaDrm.NewInstance(uuid), drmCallback,
-                null, mainHandler, eventLogger);
+            return new DefaultDrmSessionManager(uuid, FrameworkMediaDrm.NewInstance(uuid), drmCallback, null);
         }
 
         private void ReleasePlayer()
@@ -539,7 +539,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 player.Release();
                 player = null;
                 mediaSource = null;
-                trackSelector = null;
+                //trackSelector = null;
 
                 //Todo: implement IAnalyticsListener
                 eventLogger = null;
@@ -569,10 +569,10 @@ namespace Com.Google.Android.Exoplayer2.Demo
 
         private void UpdateTrackSelectorParameters()
         {
-            if (trackSelector != null)
-            {
-                trackSelectorParameters = trackSelector.GetParameters();
-            }
+            //if (trackSelector != null)
+            //{
+            //    trackSelectorParametersBuilder = trackSelector.GetParameters();
+            //}
         }
 
         private void UpdateStartPosition()
@@ -623,7 +623,9 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 }
                 AdMediaSourceFactory adMediaSourceFactory = new AdMediaSourceFactory(this);
 
-                return new AdsMediaSource(mediaSource, adMediaSourceFactory, adsLoader, adUiViewGroup);
+                var viewProvider = new AdsLoaderAdViewProvider(() => adUiViewGroup);
+
+                return new AdsMediaSource(mediaSource, new DataSpec.Builder().Build(), null, adMediaSourceFactory, adsLoader, viewProvider);
             }
             catch (ClassNotFoundException e)
             {
@@ -636,7 +638,19 @@ namespace Com.Google.Android.Exoplayer2.Demo
             }
         }
 
-        private class AdMediaSourceFactory : Java.Lang.Object, AdsMediaSource.IMediaSourceFactory
+        private class AdsLoaderAdViewProvider : Java.Lang.Object, IAdsLoaderAdViewProvider
+        {
+            private readonly Func<ViewGroup> provideAdViewGroup;
+
+            public AdsLoaderAdViewProvider(Func<ViewGroup> provdieAdViewGroup)
+            {
+                this.provideAdViewGroup = provdieAdViewGroup;
+            }
+
+            public ViewGroup AdViewGroup => provideAdViewGroup.Invoke();
+        }
+
+        private class AdMediaSourceFactory : Java.Lang.Object, IMediaSourceFactory
         {
             PlayerActivity activity;
 
@@ -650,9 +664,39 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 return activity.BuildMediaSource(uri);
             }
 
+            public IMediaSource CreateMediaSource(MediaItem p0)
+            {
+                throw new NotSupportedException();
+            }
+
             public int[] GetSupportedTypes()
             {
                 return new int[] { C.TypeDash, C.TypeSs, C.TypeHls, C.TypeOther };
+            }
+
+            public IMediaSourceFactory SetDrmHttpDataSourceFactory(IHttpDataSourceFactory p0)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IMediaSourceFactory SetDrmSessionManager(IDrmSessionManager p0)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IMediaSourceFactory SetDrmSessionManagerProvider(IDrmSessionManagerProvider p0)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IMediaSourceFactory SetDrmUserAgent(string p0)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IMediaSourceFactory SetLoadErrorHandlingPolicy(ILoadErrorHandlingPolicy p0)
+            {
+                throw new NotImplementedException();
             }
         }
 
@@ -665,39 +709,39 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 return;
             }
 
-            MappedTrackInfo mappedTrackInfo = trackSelector.CurrentMappedTrackInfo;
-            if (mappedTrackInfo == null)
-            {
-                return;
-            }
+            //MappedTrackInfo mappedTrackInfo = trackSelector.CurrentMappedTrackInfo;
+            //if (mappedTrackInfo == null)
+            //{
+            //    return;
+            //}
 
-            for (int i = 0; i < mappedTrackInfo.RendererCount; i++)
-            {
-                TrackGroupArray trackGroups = mappedTrackInfo.GetTrackGroups(i);
-                if (trackGroups.Length != 0)
-                {
-                    Button button = new Button(this);
-                    int label;
-                    switch (player.GetRendererType(i))
-                    {
-                        case C.TrackTypeAudio:
-                            label = Resource.String.exo_track_selection_title_audio;
-                            break;
-                        case C.TrackTypeVideo:
-                            label = Resource.String.exo_track_selection_title_video;
-                            break;
-                        case C.TrackTypeText:
-                            label = Resource.String.exo_track_selection_title_text;
-                            break;
-                        default:
-                            continue;
-                    }
-                    button.SetText(label);
-                    button.SetTag(button.Id, i);
-                    button.SetOnClickListener(this);
-                    debugRootView.AddView(button);
-                }
-            }
+            //for (int i = 0; i < mappedTrackInfo.RendererCount; i++)
+            //{
+            //    TrackGroupArray trackGroups = mappedTrackInfo.GetTrackGroups(i);
+            //    if (trackGroups.Length != 0)
+            //    {
+            //        Button button = new Button(this);
+            //        int label;
+            //        switch (player.GetRendererType(i))
+            //        {
+            //            case C.TrackTypeAudio:
+            //                label = Resource.String.exo_track_selection_title_audio;
+            //                break;
+            //            case C.TrackTypeVideo:
+            //                label = Resource.String.exo_track_selection_title_video;
+            //                break;
+            //            case C.TrackTypeText:
+            //                label = Resource.String.exo_track_selection_title_text;
+            //                break;
+            //            default:
+            //                continue;
+            //        }
+            //        button.SetText(label);
+            //        button.SetTag(button.Id, i);
+            //        button.SetOnClickListener(this);
+            //        debugRootView.AddView(button);
+            //    }
+            //}
         }
 
         private void ShowControls()
@@ -821,27 +865,20 @@ namespace Com.Google.Android.Exoplayer2.Demo
                         // Special case for decoder initialization failures.
                         DecoderInitializationException decoderInitializationException =
                             (DecoderInitializationException)cause;
-                        if (decoderInitializationException.DecoderName == null)
+                        
+                        if (decoderInitializationException.Cause is DecoderQueryException)
                         {
-                            if (decoderInitializationException.Cause is DecoderQueryException)
-                            {
-                                errorstring = activity.ApplicationContext.GetString(Resource.String.error_querying_decoders);
-                            }
-                            else if (decoderInitializationException.SecureDecoderRequired)
-                            {
-                                errorstring =
-                                    activity.ApplicationContext.GetString(Resource.String.error_no_secure_decoder, decoderInitializationException.MimeType);
-                            }
-                            else
-                            {
-                                errorstring =
-                                    activity.ApplicationContext.GetString(Resource.String.error_no_decoder, decoderInitializationException.MimeType);
-                            }
+                            errorstring = activity.ApplicationContext.GetString(Resource.String.error_querying_decoders);
+                        }
+                        else if (decoderInitializationException.SecureDecoderRequired)
+                        {
+                            errorstring =
+                                activity.ApplicationContext.GetString(Resource.String.error_no_secure_decoder, decoderInitializationException.MimeType);
                         }
                         else
                         {
                             errorstring =
-                               activity.ApplicationContext.GetString(Resource.String.error_instantiating_decoder, decoderInitializationException.DecoderName);
+                                activity.ApplicationContext.GetString(Resource.String.error_no_decoder, decoderInitializationException.MimeType);
                         }
                     }
                 }

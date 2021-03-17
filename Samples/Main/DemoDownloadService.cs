@@ -27,6 +27,7 @@ using Utils = Com.Google.Android.Exoplayer2.Util.Util;
 using Android.Runtime;
 using System;
 using Java.Interop;
+using System.Collections.Generic;
 
 namespace Com.Google.Android.Exoplayer2.Demo
 {
@@ -77,11 +78,11 @@ namespace Com.Google.Android.Exoplayer2.Demo
             }
         }
 
-        public override IBinder OnBind(Intent intent)
-        {
-            // Return null because this is a pure started service. A hybrid service would return a binder that would allow communication back and forth
-            return null;
-        }
+        //public override IBinder OnBind(Intent intent)
+        //{
+        //    // Return null because this is a pure started service. A hybrid service would return a binder that would allow communication back and forth
+        //    return null;
+        //}
 
         public override void OnCreate()
         {
@@ -99,7 +100,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
             return Utils.SdkInt >= 21 ? new PlatformScheduler(this, JOB_ID) : null;
         }
 
-        protected override Notification GetForegroundNotification(TaskState[] taskStates)
+        protected override Notification GetForegroundNotification(IList<Download> downloads)
         {
             return DownloadNotificationUtil.BuildProgressNotification(
                 /* context= */ this,
@@ -107,21 +108,21 @@ namespace Com.Google.Android.Exoplayer2.Demo
                 CHANNEL_ID,
                 /* contentIntent= */ null,
                 /* message= */ null,
-                taskStates);
+                downloads);
         }
 
-        protected override void OnTaskStateChanged(TaskState taskState)
+        protected override void OnDownloadChanged(Download download)
         {
-            if (taskState.Action.IsRemoveAction)
+            if (download.IsTerminalState)
             {
                 return;
             }
             Notification notification = null;
 
-            byte[] bytes = new byte[taskState.Action.Data.Count];
-            taskState.Action.Data.CopyTo(bytes, 0);
+            byte[] bytes = new byte[download.ContentLength];
+            download.Request.Data.CopyTo(bytes, 0);
 
-            if (taskState.State == TaskState.StateCompleted)
+            if (download.State == Download.StateCompleted)
             {
                 notification =
                     DownloadNotificationUtil.BuildDownloadCompletedNotification(
@@ -131,7 +132,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
                         /* contentIntent= */ null,
                         Utils.FromUtf8Bytes(bytes));
             }
-            else if (taskState.State == TaskState.StateFailed)
+            else if (download.State == Download.StateFailed)
             {
                 notification =
                     DownloadNotificationUtil.BuildDownloadFailedNotification(
@@ -141,7 +142,7 @@ namespace Com.Google.Android.Exoplayer2.Demo
                         /* contentIntent= */ null,
                        Utils.FromUtf8Bytes(bytes));
             }
-            int notificationId = FOREGROUND_NOTIFICATION_ID + 1 + taskState.TaskId;
+            int notificationId = FOREGROUND_NOTIFICATION_ID + 1 + download.Request.Id.GetHashCode();
             NotificationUtil.SetNotification(this, notificationId, notification);
         }
     }
