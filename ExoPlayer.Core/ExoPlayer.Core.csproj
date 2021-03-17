@@ -7,10 +7,8 @@
     <PackageId>Xam.Plugins.Android.ExoPlayer.Core</PackageId>
     <IsBindingProject>true</IsBindingProject>
     <EnableDefaultItems>false</EnableDefaultItems>
-    <PackageVersion>2.13.2</PackageVersion>
     <!--NOTE by default its value is enabled, but bindings generator produces method with void? which is illegal-->
     <Nullable>disable</Nullable>
-    <ReleaseVersion>2.8.0</ReleaseVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Additions\*;Jars\*;Transforms\*;JavaDocs\**" />

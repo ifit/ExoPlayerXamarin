@@ -26,7 +26,6 @@
     </AndroidStoreUncompressedFileExtensions>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ReleaseVersion>2.8.0</ReleaseVersion>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidLinkTool>r8</AndroidLinkTool>
   </PropertyGroup>
@@ -70,6 +69,12 @@
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExoPlayer.Common">
+      <HintPath>..\..\ExoPlayer.Common\bin\Debug\monoandroid10.0\ExoPlayer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ExoPlayer.Extractor">
+      <HintPath>..\..\ExoPlayer.Extractor\bin\Debug\monoandroid10.0\ExoPlayer.Extractor.dll</HintPath>
+    </Reference>
     <Reference Include="ExoPlayer.Core">
       <HintPath>..\..\ExoPlayer.Core\bin\Debug\monoandroid10.0\ExoPlayer.Core.dll</HintPath>
     </Reference>
@@ -173,9 +178,6 @@
     <Reference Include="Xamarin.AndroidX.RecyclerView">
       <HintPath>..\..\packages\Xamarin.AndroidX.RecyclerView.1.1.0.8\lib\monoandroid90\Xamarin.AndroidX.RecyclerView.dll</HintPath>
     </Reference>
-    <Reference Include="ExoPlayer.Common">
-      <HintPath>..\..\ExoPlayer.Common\bin\Debug\monoandroid10.0\ExoPlayer.Common.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.AndroidX.DocumentFile">
       <HintPath>..\..\packages\Xamarin.AndroidX.DocumentFile.1.0.1.7\lib\monoandroid90\Xamarin.AndroidX.DocumentFile.dll</HintPath>
     </Reference>
@@ -226,9 +228,6 @@
     </Reference>
     <Reference Include="Xamarin.GooglePlayServices.Cast.Framework">
       <HintPath>..\..\packages\Xamarin.GooglePlayServices.Cast.Framework.119.0.0\lib\monoandroid90\Xamarin.GooglePlayServices.Cast.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="ExoPlayer.Extractor">
-      <HintPath>..\..\ExoPlayer.Core\bin\Debug\monoandroid10.0\ExoPlayer.Extractor.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.Annotations">
       <HintPath>..\..\packages\Xamarin.Android.Support.Annotations.28.0.0.3\lib\monoandroid90\Xamarin.Android.Support.Annotations.dll</HintPath>

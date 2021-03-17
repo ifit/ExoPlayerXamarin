@@ -20,6 +20,7 @@ namespace Com.Google.Android.Exoplayer2.CastDemo
 {
     internal class PlayerManager : Java.Lang.Object, IPlayerEventListener, ISessionAvailabilityListener
     {
+        //static readonly Java.Interop.JniPeerMembers _members = new android.Runtime.XAPeerMembers("com/google/android/exoplayer2/Player$AudioComponent", typeof(trac));
 
         /**
          * Listener for changes in the media queue playback position.
@@ -31,11 +32,6 @@ namespace Com.Google.Android.Exoplayer2.CastDemo
              * Called when the currently played item of the media queue changes.
              */
             void OnQueuePositionChanged(int previousIndex, int newIndex);
-
-        }
-
-        public void OnPlaybackStateChanged(int state)
-        {
 
         }
 
